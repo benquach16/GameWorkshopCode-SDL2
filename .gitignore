@@ -1,3 +1,6 @@
 *.exe
 *.pdb
 *.pch
+*.dll
+*.tpch
+*.tlog
