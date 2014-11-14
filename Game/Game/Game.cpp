@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "globals.h"
+#include "object.h"
 #include <SDL.h>
 
 #pragma comment(lib, "SDL2.lib")
@@ -19,13 +20,25 @@ int main(int argc, char* argv[])
 	globals::renderer = SDL_CreateRenderer(window, -1, 0);
 
 	SDL_SetRenderDrawColor(globals::renderer, 0, 0, 0, 255);
-
+	Object *obj= new Object(
+		window,
+		"Resources/Art/pacman.bmp",
+		Vector2(0,0),
+		0.0f,
+		Vector2(0,0));
+	
 	while (true)
 	{
 		SDL_RenderClear(globals::renderer);
 		//game stuff goes here
+		for (unsigned i = 0; i < Object::allObjects.size(); i++)
+		{
+			Object::allObjects[i]->draw();
+		}
 		SDL_RenderPresent(globals::renderer);
+		SDL_UpdateWindowSurface(window);
 	}
+	SDL_DestroyWindow(window);
 	return 0;
 }
 
