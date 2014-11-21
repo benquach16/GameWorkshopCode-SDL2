@@ -81,6 +81,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="eventhandler.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="stdafx.h" />
@@ -88,6 +89,7 @@
     <ClInclude Include="vector2.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="eventhandler.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="globals.cpp" />
     <ClCompile Include="object.cpp" />

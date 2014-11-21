@@ -29,12 +29,49 @@ Object::~Object()
 
 void Object::draw()
 {
+	SDL_Rect rect;
+	rect.x = position.x;
+	rect.y = position.y;
 	SDL_Surface *s = SDL_GetWindowSurface(window);
-	SDL_BlitSurface(texture, 0, s, 0);
+	SDL_BlitSurface(texture, 0, s, &rect);
 }
 
 void Object::run()
 {
-
+	if (components & E_COMPONENTS::MOVEMENT)
+	{
+		movement();
+	}
 }
+
+void Object::setPosition(const Vector2& v)
+{
+	position = v;
+}
+
+void Object::setRotation(const float r)
+{
+	rotation = r;
+}
+
+void Object::setScale(const Vector2& v)
+{
+	scale = v;
+}
+
+const Vector2& Object::getPosition() const
+{
+	return position;
+}
+
+const float Object::getRotation() const
+{
+	return rotation;
+}
+
+const Vector2& Object::getScale() const
+{
+	return scale;
+}
+
 

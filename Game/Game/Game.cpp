@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "globals.h"
 #include "object.h"
+#include "eventhandler.h"
 #include <SDL.h>
 
 #pragma comment(lib, "SDL2.lib")
@@ -23,19 +24,29 @@ int main(int argc, char* argv[])
 	Object *obj= new Object(
 		window,
 		"Resources/Art/pacman.bmp",
-		Vector2(0,0),
+		Vector2(100,0),
 		0.0f,
 		Vector2(0,0));
+	bool quit = false;
 	
-	while (true)
+	EventHandler handler;
+	while (!quit)
 	{
 		SDL_RenderClear(globals::renderer);
-		//game stuff goes here
+		handler.getEvent();
+		if (handler.isKeyDown(SDLK_w))
+		{
+			//game stuff goes here
+			Vector2 newPosition = obj->getPosition();
+			newPosition.y++;
+			obj->setPosition(newPosition);
+		}
+
 		for (unsigned i = 0; i < Object::allObjects.size(); i++)
 		{
 			Object::allObjects[i]->draw();
 		}
-		SDL_RenderPresent(globals::renderer);
+		//SDL_RenderPresent(globals::renderer);
 		SDL_UpdateWindowSurface(window);
 	}
 	SDL_DestroyWindow(window);
