@@ -4,4 +4,5 @@
 namespace globals
 {
 	SDL_Renderer *renderer = 0;
+	EventHandler *handler = 0;
 }

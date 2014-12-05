@@ -1,22 +1,23 @@
 #include "stdafx.h"
 #include "object.h"
+#include "globals.h"
 
 std::vector<Object*> Object::allObjects;
 
 Object::Object(
-	SDL_Window *window,
 	const std::string filepath,
 	const Vector2 &position,
 	const float rotation,
 	const Vector2 &scale) 
 	:
-	window(window),
 	filepath(filepath),
 	position(position),
 	rotation(rotation),
 	scale(scale)
 {
-	texture = SDL_LoadBMP(filepath.c_str());
+	SDL_Surface *s = SDL_LoadBMP(filepath.c_str());
+
+	texture = SDL_CreateTextureFromSurface(globals::renderer, s);
 
 	allObjects.push_back(this);
 	index = allObjects.size() - 1;
@@ -32,15 +33,36 @@ void Object::draw()
 	SDL_Rect rect;
 	rect.x = position.x;
 	rect.y = position.y;
-	SDL_Surface *s = SDL_GetWindowSurface(window);
-	SDL_BlitSurface(texture, 0, s, &rect);
+	rect.w = scale.x;
+	rect.h = scale.y;
+	SDL_RenderCopy(globals::renderer, texture, NULL,&rect);
 }
 
 void Object::run()
 {
 	if (components & E_COMPONENTS::MOVEMENT)
 	{
-		movement();
+		//movement();
+	}
+	collision();
+}
+
+#include <iostream>
+void Object::collision()
+{
+	for (unsigned i = 0; i < allObjects.size(); i++)
+	{
+		if (allObjects[i]->getPosition().x < position.x + scale.x &&
+			allObjects[i]->getPosition().x + allObjects[i]->getScale().x > position.x &&
+			allObjects[i]->getPosition().y < position.y + scale.y &&
+			allObjects[i]->getPosition().y + allObjects[i]->getScale().y > position.y)
+		{
+			if (this != allObjects[i])
+			{
+
+			
+			}
+		}
 	}
 }
 

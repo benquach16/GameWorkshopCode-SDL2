@@ -21,7 +21,6 @@ public:
 	};
 	//constructor
 	Object(
-		SDL_Window *window,
 		const std::string filepath,
 		const Vector2 &position,
 		const float rotation,
@@ -29,7 +28,7 @@ public:
 	~Object(); 
 	virtual void draw();
 	virtual void run();
-	virtual void movement();
+	//virtual void movement();
 	virtual void collision();
 
 	void setPosition(const Vector2& v);
@@ -42,9 +41,8 @@ public:
 protected:
 	int components;	//stores the component bits
 	int index;
-	SDL_Window *window;
 	std::string filepath;
-	SDL_Surface *texture;
+	SDL_Texture *texture;
 	Vector2 position;
 	float rotation;
 	Vector2 scale;
